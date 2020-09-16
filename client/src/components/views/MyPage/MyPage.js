@@ -4,8 +4,7 @@ import { withRouter} from 'react-router-dom'
 
 import { useSelector } from "react-redux";
 
-import {Typography,Button,Form,message,Input} from 'antd'
-import Icon from "@ant-design/icons"
+
 import DropZone from 'react-dropzone'
 
 function MyPage(props) {
@@ -152,9 +151,6 @@ function MyPage(props) {
 
   return (
 
-
-
-
     <div style={{
       display: 'flex', justifyContent: 'center', alignItems:'center'
       ,width: '100%', height: '100vh'
@@ -210,8 +206,6 @@ function MyPage(props) {
         <input type="password" value={updatePasswordConfirm} onChange={onConfirmPasswordHandler}/>
         
         <br/>
-
-
 
 
         <button type = "submit">
