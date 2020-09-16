@@ -78,15 +78,13 @@ userSchema.pre("save", function (next) {
 userSchema.pre("updateOne", function (next) {
   let user = this; //arrow function 대신 function을 사용한 이유
   console.log("updateOne pre에 들어왔어요");
-  // console.log(user)
-  console.log("user._updata입니다",user._update);
+  console.log("user._updata입니다",user._update); //nopassmodify는 $set.password가 언디파인임
   console.log("user._updata.$set입니다",user._update.$set.password);
   if (user._update.$set.password) {
     bcrypt.genSalt(saltRounds, function (err, salt) {
       console.log("password genSalt에 들어왔어요");
       if (err) return next(err);
       bcrypt.hash(user._update.$set.password, salt, function (err, hash) {
-
         if (err) return next(err);
         console.log("setpassword입니다.",user._update.$set.password)
         user._update.$set.password = hash;
@@ -96,7 +94,7 @@ userSchema.pre("updateOne", function (next) {
     });             
   } else if(user._update.$set.image){ //이미지를 바꿀떄
     next();
-  }
+  } else next();
 });
 
 

@@ -404,6 +404,34 @@ app.post("/api/users/modify", auth, (req, res)=>{
   })
 })
 
+app.post("/api/user/nopassmodify", auth, (req, res)=>{
+  console.log("auth 노패스 모디파이", req.user)
+  User.findOne({ _id: req.user.id }, (err, user) => {
+    console.log("파인드원",user)
+  if (err) return res.json({ success: false, err });
+    // console.log("user._id 아이디아이디", user._id)
+    console.log("req.user 유저유저",req.user)
+    console.log("req.body 바디바디",req.body)
+    //req.body를 확인하기
+  User.updateOne(
+    {_id: user._id},
+    {//$set을 해야 해당 필드만 바뀝니다. https://www.zerocho.com/category/MongoDB/post/579e2821c097d015000404dc
+      $set: {       //req.body => body로 보내고
+        image: req.body.newImage,
+        name: req.body.newName,
+            },
+    },
+    console.log("req바디 패스워드",req.body.newPassword),
+    (err,userInfo)=>{
+      if(err) return res.json({success: false, err})
+      return res.status(200).send({
+        success:true,
+        user : userInfo,
+        })
+      }
+    )
+  })
+})
 
 
 
